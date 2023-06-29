@@ -11,30 +11,42 @@ function createRoute() {
 }
 
 function findAllRoute() {
-    routes.get('/usuarios', (req, res) => {
-        console.log('Get',req.params )
-        res.json([]);
+    routes.get('/usuarios', async (req, res) => {
+        const usuarios = await Usuario.findAll();
+        res.json(usuarios);
     })
 }
 
 function findByIdRoute() {
-    routes.get('/usuarios/:id', (req, res) => {
-        console.log('Get', req.params)
-        res.json();
+    routes.get('/usuarios/:id', async (req, res) => {
+        res.json(await Usuario.findOne({
+            where: {
+                id : req.params.id
+            }
+        }));
     })
 }
 
 function updateRoute() {
-    routes.put('/usuarios', (req, res) => {
-        console.log('Update', req.body)
-        res.json([]);
+    routes.put('/usuarios/:usuario', async(req, res) => {
+        console.log(req.body)
+        res.json(await Usuario.update(
+                req.body,{
+                    where: {
+                        id: req.body.id
+                    }
+                }
+            ));
     })
 }
 
 function removeRoute() {
-    routes.delete('/usuarios/:id', (req, res) => {
-        console.log('Remove', req.params)
-        res.json();
+    routes.delete('/usuarios/:id', async (req, res) => {
+        res.json(await Usuario.destroy({
+            where: {
+                id: req.params.id
+            }
+        }));
     })
 }
 
