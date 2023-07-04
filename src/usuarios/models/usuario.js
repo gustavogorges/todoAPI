@@ -21,13 +21,45 @@ Usuario.init ({
         type:DataTypes.STRING,
         allowNull:false,
         unique: true
+    },
+    cardAdd: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    cardEdit: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    cardRemove: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    cardMove: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    propertieAdd: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    propertieEdit: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
+    },
+    propertieRemove: {
+        type:DataTypes.BOOLEAN,
+        allowNull : true
     }
 }, {
     sequelize: connection,
     modelName: 'users'
 });
 
-Usuario.sync()
+Usuario.sync(
+    {
+       alter : true 
+    }
+)
 .then(() => {
     console.log('Usuario sincronizado')
 })
